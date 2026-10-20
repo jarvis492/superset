@@ -16,7 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { QueryFormColumn, QueryFormData } from '@superset-ui/core';
+import {
+  QueryFormColumn,
+  QueryFormData,
+  QueryFormMetric,
+} from '@superset-ui/core';
 import {
   BaseChartProps,
   BaseTransformedProps,
@@ -37,6 +41,10 @@ export type EchartsGaugeFormData = QueryFormData & {
   rowLimit: number;
   minVal: number | null;
   maxVal: number | null;
+  /** Metric whose value sets the axis min; overrides minVal when present */
+  minMetric?: QueryFormMetric | null;
+  /** Metric whose value sets the axis max; overrides maxVal when present */
+  maxMetric?: QueryFormMetric | null;
   fontSize: number;
   numberFormat: string;
   animation: boolean;
@@ -51,6 +59,8 @@ export type EchartsGaugeFormData = QueryFormData & {
   showPointer: boolean;
   intervals: string;
   intervalColorIndices: string;
+  /** Read interval bounds as percentages of the axis range */
+  intervalsRelative: boolean;
   valueFormatter: string;
 };
 
@@ -74,6 +84,7 @@ export const DEFAULT_FORM_DATA: Partial<EchartsGaugeFormData> = {
   showPointer: true,
   intervals: '',
   intervalColorIndices: '',
+  intervalsRelative: false,
   valueFormatter: '{value}',
 };
 
